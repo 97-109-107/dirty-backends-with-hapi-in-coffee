@@ -1,6 +1,10 @@
 Hapi = require("hapi")
+Fs = require("fs")
 server = new Hapi.Server()
-server.connection port: 3000
+server.connection
+  port: 3000
+  routes: cors: true
+
 server.start ->
   console.log "Server running at:", server.info.uri
   return
@@ -16,7 +20,8 @@ server.route
   method: "GET"
   path: "/api/disco"
   handler: (request, reply) ->
-    reply.file "./sample.json"
+    jsonFileAsObject = JSON.parse(Fs.readFileSync("./sample.json", "utf8"))
+    reply jsonFileAsObject
 
 server.route
   method: "POST"
