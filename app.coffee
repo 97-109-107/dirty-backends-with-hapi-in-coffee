@@ -13,6 +13,7 @@ server.route
   method: "GET"
   path: "/"
   handler: (request, reply) ->
+    console.log request.headers
     reply "Hello, world!"
     return
 
